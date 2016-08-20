@@ -1,0 +1,23 @@
+{
+  "name": "extreme-beekeeper",
+  "version": "1.0.0",
+  "description": "Browser game where you are an unusually extreme beekeeper.",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-htmlmin": "^2.0.0",
+    "grunt-contrib-uglify": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/alexlitty/extreme-beekeper.git"
+  },
+  "author": "Alexander Litty",
+  "license": "ISC"
+}
