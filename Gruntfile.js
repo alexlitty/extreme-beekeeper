@@ -6,7 +6,7 @@ module.exports = function(grunt) {
             },
 
             dest: {
-                js: 'www/beekeeper.min.js'
+                js: 'www/beekeeper.js'
             }
         },
 
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
                 options: {
                     separator: ';'
                 },
-                src: '<%= paths.src.js %>',
+                src: ['client/**/*.js'],
                 dest: '<%= paths.dest.js %>'
             }
         },

@@ -4,6 +4,7 @@
   "description": "Browser game where you are an unusually extreme beekeeper.",
   "main": "server.js",
   "dependencies": {
+    "compression": "^1.6.2",
     "express": "^4.14.0",
     "grunt": "^1.0.1",
     "grunt-contrib-concat": "^1.0.1",
