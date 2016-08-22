@@ -26,23 +26,38 @@ module.exports = function(grunt) {
         concat: {
             js: {
                 options: {
-                    separator: ';'
+                    separator: ''
                 },
-                src: ['client/**/*.js'],
-                dest: '<%= paths.dest.js %>'
+                src: [
+                    'client/utility.js',
+                    'client/**/*.js',
+                    'engine/**/*.js'
+                ],
+                dest: 'www/beekeeper.js'
             }
         },
-
+        
         uglify: {
             options: {
                 compress: true,
-                mangle: true,
+                mangle: false,
                 sourceMap: false
             },
 
             www: {
-                src: '<%= paths.src.js %>',
-                dest: '<%= paths.dest.js %>'
+                src: 'www/beekeeper.js',
+                dest: 'www/b.js'
+            }
+        },
+
+        watch: {
+            scripts: {
+                files: [
+                    'client/**/*.html',
+                    'client/**/*.js',
+                    'engine/**/*.js'
+                ],
+                tasks: ['default']
             }
         }
     });
@@ -50,6 +65,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['htmlmin', 'concat', 'uglify']);
 }
