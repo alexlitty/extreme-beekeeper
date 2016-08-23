@@ -11,10 +11,13 @@ function I() {
 }
 
 /**
- * Perform a game tick.
+ * Perform one or more game ticks.
+ *
+ * n is the amount of ticks to perform, default 1.
  */
-I.prototype.t = function() {
+I.prototype.t = function(n) {
+    n = n || 1;
 
     // Add honey.
-    this.h += this.H;
+    this.h += this.H * n;
 }

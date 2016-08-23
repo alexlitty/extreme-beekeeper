@@ -1,39 +1,27 @@
 module.exports = function(grunt) {
     grunt.initConfig({
-        paths: {
-            src: {
-                js: 'client/**/*.js'
-            },
-
-            dest: {
-                js: 'www/beekeeper.js'
-            }
-        },
-
         htmlmin: {
-            www: {
+            clientMin: {
                 options: {
                     removeComments: true,
                     collapseWhitespace: true
                 },
 
                 files: {
-                    'www/index.html': 'client/index.html'
+                    'client-min/index.html': 'client/index.html'
                 }
             }
         },
 
         concat: {
-            js: {
-                options: {
-                    separator: ''
-                },
+            clientMin: {
+                options: { separator: '' },
                 src: [
                     'client/utility.js',
                     'client/**/*.js',
                     'engine/**/*.js'
                 ],
-                dest: 'www/beekeeper.js'
+                dest: 'client-min/b.js'
             }
         },
         
@@ -44,9 +32,9 @@ module.exports = function(grunt) {
                 sourceMap: false
             },
 
-            www: {
-                src: 'www/beekeeper.js',
-                dest: 'www/b.js'
+            clientMin: {
+                src: 'client-min/b.js',
+                dest: 'client-min/b.js'
             }
         },
 
@@ -54,6 +42,7 @@ module.exports = function(grunt) {
             scripts: {
                 files: [
                     'client/**/*.html',
+                    'client/**/*.css',
                     'client/**/*.js',
                     'engine/**/*.js'
                 ],
