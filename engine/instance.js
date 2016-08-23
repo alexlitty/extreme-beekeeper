@@ -3,6 +3,9 @@
  */
 function I() {
 
+    // Honey gained per tick.
+    this.H = 1;
+
     // Honey.
     this.h = 0;
 }
@@ -13,5 +16,5 @@ function I() {
 I.prototype.t = function() {
 
     // Add honey.
-    this.h++;
+    this.h += this.H;
 }
