@@ -1,7 +1,19 @@
 module.exports = function(grunt) {
     grunt.initConfig({
+        mkdir: {
+            all: {
+                options: {
+                    mode: 0777,
+                    create: [
+                        './db',
+                        './db/session'
+                    ]
+                }
+            }
+        },
+
         htmlmin: {
-            clientMin: {
+            all: {
                 options: {
                     removeComments: true,
                     collapseWhitespace: true
@@ -14,7 +26,7 @@ module.exports = function(grunt) {
         },
 
         concat: {
-            clientMin: {
+            all: {
                 options: { separator: '' },
                 src: [
                     'client/utility.js',
@@ -32,14 +44,14 @@ module.exports = function(grunt) {
                 sourceMap: false
             },
 
-            clientMin: {
+            all: {
                 src: 'client-min/b.js',
                 dest: 'client-min/b.js'
             }
         },
 
         watch: {
-            scripts: {
+            all: {
                 files: [
                     'client/**/*.html',
                     'client/**/*.css',
@@ -51,9 +63,10 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-mkdir');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['htmlmin', 'concat', 'uglify']);
