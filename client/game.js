@@ -13,6 +13,6 @@ R('load', function() {
     Z(function() {
         i.t();
         W(h,i.h);
-    }, 1000/20);
+    }, 1000/f);
 
 });

@@ -2,7 +2,7 @@ var _ = require('underscore');
 var async = require('async');
 var uuid = require('uuid');
 
-var config = require('../config');
+var config = require('./config');
 var db = require('./db');
 
 /**

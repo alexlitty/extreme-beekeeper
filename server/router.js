@@ -1,12 +1,14 @@
+var path = require('path');
+
 var Session = require('./Session.js');
 
-exports.init = function(app, path) {
+exports.init = function(app, contentPath) {
     app.get('/b.js', function(req, res) {
-        res.sendFile(path + 'b.js');
+        res.sendFile(path.join(contentPath, 'b.js'));
     });
 
     app.get('/b.css', function(req, res) {
-        res.sendFile(path + 'b.css');
+        res.sendFile(path.join(contentPath, 'b.css'));
     });
 
     app.get('/', function(req, res) {
@@ -19,7 +21,7 @@ exports.init = function(app, path) {
 
             else {
                 session.save();
-                res.sendFile(path + 'index.html');
+                res.sendFile(path.join(contentPath, 'index.html'));
             }
         });
     });

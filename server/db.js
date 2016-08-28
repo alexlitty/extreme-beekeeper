@@ -1,7 +1,8 @@
 var _ = require('underscore');
 var fs = require('fs');
-var config = require('./../config');
+var path = require('path');
 
+var config = require('./config');
 var db = {
     session: { }
 };
@@ -25,10 +26,11 @@ db.set = function(category, item, value, cb) {
     // Value must be an object.
     if (!db.isValidValue) {
         cb(new Error('db set ' + category + '/' + item + ': bad value'));
+        return;
     }
 
     // Write new value.
-    var filename = config.path.db + category + '/' + item + '.json';
+    var filename = path.join(config.path.db, category, item + '.json');
     fs.writeFile(filename, JSON.stringify(value), 'utf8', cb);
 }
 
@@ -38,7 +40,7 @@ db.set = function(category, item, value, cb) {
  * Always returns an object.
  */
 db.get = function(category, item, cb) {
-    var filename = config.path.db + category + '/' + item + '.json';
+    var filename = path.join(config.path.db, category, item + '.json');
     fs.readFile(filename, 'utf8', function(err, data) {
 
         // Item retrieved.

@@ -5,7 +5,7 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var compression = require('compression');
 
-var config = require('./config');
+var config = require('./server/config');
 var router = require('./server/router');
 
 // Initialize express.
