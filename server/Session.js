@@ -1,11 +1,22 @@
+var _ = require('underscore');
 var async = require('async');
+var uuid = require('uuid');
+
 var db = require('./db');
 
 /**
- * Retrieve the current session, or start a new one.
+ * Setup the current session or start a new one.
  */
-var Session = function(req) {
+var Session = function(req, res) {
     this.id = req.cookies.sessionId;
+
+    // Validate session ID.
+    if (this.id) {
+        if (!_.isString(this.id) || !Session.regex.id.test(this.id) || this.id != uuid.unparse(uuid.parse(this.id))) {
+            console.warn('Ignoring bad session ID:', this.id);
+            this.id = null;
+        }
+    }
 
     // Start a new session.
     if (!this.id) {
@@ -15,10 +26,17 @@ var Session = function(req) {
 };
 
 /**
+ * Regular expression to validate session IDs.
+ */
+Session.regex = {
+    id: /^[A-Za-z0-9-]+$/
+};
+
+/**
  * Generates a new session ID.
  */
 Session.prototype._generateId = function() {
-    this.id = 'abcdefg';
+    this.id = uuid.v4();
 };
 
 /**

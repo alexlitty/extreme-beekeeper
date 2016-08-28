@@ -10,7 +10,7 @@ exports.init = function(app, path) {
     });
 
     app.get('/', function(req, res) {
-        var session = new Session(req);
+        var session = new Session(req, res);
         session.init(function(err) {
             if (err) {
                 console.error(err);
