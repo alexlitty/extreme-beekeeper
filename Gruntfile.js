@@ -69,5 +69,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['htmlmin', 'concat', 'uglify']);
+    grunt.registerTask('default', ['mkdir', 'htmlmin', 'concat', 'uglify']);
 }
