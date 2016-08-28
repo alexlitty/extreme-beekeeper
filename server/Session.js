@@ -2,6 +2,7 @@ var _ = require('underscore');
 var async = require('async');
 var uuid = require('uuid');
 
+var config = require('../config');
 var db = require('./db');
 
 /**
@@ -21,7 +22,7 @@ var Session = function(req, res) {
     // Start a new session.
     if (!this.id) {
         this._generateId();
-        res.cookie('sessionId', this.id);
+        res.cookie('sessionId', this.id, { expires: config.cookieExpiration });
     }
 };
 
