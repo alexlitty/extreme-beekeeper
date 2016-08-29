@@ -22,15 +22,15 @@ db.isValidValue = function(value) {
  * Value must always be an object.
  */
 db.set = function(category, item, value, cb) {
+    var filename = path.join(config.path.db, category, item + '.json');
 
     // Value must be an object.
     if (!db.isValidValue) {
-        cb(new Error('db set ' + category + '/' + item + ': bad value'));
+        cb(new Error('db set ' + filename + ': bad value'));
         return;
     }
 
     // Write new value.
-    var filename = path.join(config.path.db, category, item + '.json');
     fs.writeFile(filename, JSON.stringify(value), 'utf8', cb);
 }
 
@@ -45,7 +45,25 @@ db.get = function(category, item, cb) {
 
         // Item retrieved.
         if (!err) {
-            cb(null, db.isValidValue(data) ? JSON.parse(data) : { });
+
+            // Try to unserialize.
+            try {
+                data = JSON.parse(data);
+                if (!db.isValidValue(data)) {
+                    throw new Error('Invalid object');
+                }
+            }
+
+            // Bad item. Parse it as an empty object.
+            catch (e) {
+                console.warn('db get ' + filename + ': bad value');
+                data = { };
+            }
+
+            // Return item value.
+            finally {
+                cb(null, data);
+            }
         }
 
         // Item has no file, so item has no value.

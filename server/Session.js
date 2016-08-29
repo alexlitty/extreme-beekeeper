@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var async = require('async');
+var moment = require('moment');
 var uuid = require('uuid');
 
 var config = require('./config');
@@ -27,10 +28,11 @@ var Session = function(req, res) {
 };
 
 /**
- * Regular expression to validate session IDs.
+ * Regular expressions used by session mechanics.
  */
 Session.regex = {
-    id: /^[A-Za-z0-9-]+$/
+    id: /^[A-Za-z0-9-]+$/,
+    timeItem: /Time$/
 };
 
 /**
@@ -56,6 +58,7 @@ Session.prototype.init = function(cb) {
  * Saves the state of this session.
  */
 Session.prototype.save = function(cb) {
+    this.set('previousTime', moment());
     db.set('session', this.id, this.data, cb);
 };
 
@@ -63,14 +66,43 @@ Session.prototype.save = function(cb) {
  * Gets the value of a session item.
  */
 Session.prototype.get = function(item) {
-    return this.data[item];
+    var value = this.data[item];
+
+    // Unserialize time value.
+    if (Session.regex.timeItem.test(item)) {
+        if (!value) {
+            return moment();
+        }
+
+        // Error while unserializing. Return current time.
+        var parsedMoment = moment(value);
+        if (!parsedMoment.isValid()) {
+            console.warn("session moment is invalid:", value);
+            return moment();
+        }
+
+        // Return unserialized time.
+        return parsedMoment;
+    }
+
+    // Return normal value.
+    return value;
 };
 
 /**
  * Sets the value of a session item.
  */
 Session.prototype.set = function(item, value) {
-    this.data[item] = value;
+
+    // Serialize time value.
+    if (moment.isMoment(value)) {
+        this.data[item] = value.toISOString();
+    }
+
+    // Set normal value.
+    else {
+        this.data[item] = value;
+    }
 }
 
 module.exports = Session;
