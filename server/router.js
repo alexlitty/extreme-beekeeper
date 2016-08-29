@@ -2,7 +2,8 @@ var ejs = require('ejs');
 var moment = require('moment');
 var path = require('path');
 
-var Session = require('./Session.js');
+var config = require('./config');
+var Session = require('./Session');
 
 exports.init = function(app, contentPath) {
     app.get('/b.js', function(req, res) {
@@ -26,17 +27,11 @@ exports.init = function(app, contentPath) {
 
             // Catch-up on session.
             var previousTime = session.get('previousTime');
-            var seconds = moment().diff(previousTime, 'seconds');
+            var milliseconds = moment().diff(previousTime);
 
-            var honey = session.get('honey');
-            if (seconds > 0) {
-                if (!honey) {
-                    honey = 1;
-                } else {
-                    honey += 1000;
-                }
-
-                session.set('honey', honey);
+            if (milliseconds > 0) {
+                var ticks = (milliseconds * config.ticksPerSecond / 1000);
+                session.instance.tick(parseInt(ticks));
             }
 
             // Save session state, send page.
@@ -49,7 +44,8 @@ exports.init = function(app, contentPath) {
 
                 var renderFilename = path.join(contentPath, 'index.html');
                 var renderData = {
-                    honey: honey
+                    honey: session.instance.getHoney(),
+                    honeyRate: session.instance.getHoneyRate()
                 };
 
                 ejs.renderFile(renderFilename, renderData, null, function(err, content) {

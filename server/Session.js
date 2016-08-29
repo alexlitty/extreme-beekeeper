@@ -51,15 +51,14 @@ Session.prototype.init = function(cb) {
 
     db.get('session', self.id, function(err, data) {
         self.data = data;
+        if (!self.data.honey) {
+            self.data.honey = 1;
+        }
+        if (!self.data.honeyRate) {
+            self.data.honeyRate = 1;
+        }
 
-        // Initialize instance.
-        var instanceData = {
-            h: data.honey || 1,
-            H: 1
-        };
-
-        self.instance = new Instance(instanceData);
-
+        self.instance = new Instance(self.data);
         cb(err);
     });
 };
@@ -69,6 +68,10 @@ Session.prototype.init = function(cb) {
  */
 Session.prototype.save = function(cb) {
     this.set('previousTime', moment());
+
+    this.set('honey', this.instance.getHoney());
+    this.set('honeyRate', this.instance.getHoneyRate());
+
     db.set('session', this.id, this.data, cb);
 };
 
