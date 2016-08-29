@@ -1,17 +1,18 @@
-var _eval = require('eval');
 var fs = require('fs');
 var path = require('path');
+var requireFromString = require('require-from-string');
+var pathRoot = path.resolve(__dirname, '..');
 
 // Include the engine-level configuration.
-var pathRoot = path.resolve(__dirname, '..');
 var engineConfig = fs.readFileSync(path.join(pathRoot, 'engine', 'config.js'));
-engineConfig = _eval(engineConfig);
+engineConfig = requireFromString(engineConfig + 'module.exports = C');
 
-module.exports = {
+var config = {
+
     /**
      * When to expire cookies.
      *
-     * This date in 2038 is the farthest allowable time for older browsers.
+     * Set to the maximum possible time for older browsers.
      */
     cookieExpiration: new Date(2147483647 * 1000),
 
@@ -26,11 +27,15 @@ module.exports = {
     path: {
         root: pathRoot,
         content: path.join(pathRoot, 'client-min'),
-        db: path.join(pathRoot, 'db')
+        db: path.join(pathRoot, 'db'),
+        engine: path.join(pathRoot, 'engine')
     },
 
     /**
      * Game ticks to be executed per second.
      */
     ticksPerSecond: engineConfig.f
+
 };
+
+module.exports = config;

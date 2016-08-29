@@ -5,6 +5,7 @@ var uuid = require('uuid');
 
 var config = require('./config');
 var db = require('./db');
+var Instance = require('./instance');
 
 /**
  * Setup the current session or start a new one.
@@ -50,6 +51,15 @@ Session.prototype.init = function(cb) {
 
     db.get('session', self.id, function(err, data) {
         self.data = data;
+
+        // Initialize instance.
+        var instanceData = {
+            h: data.honey || 1,
+            H: 1
+        };
+
+        self.instance = new Instance(instanceData);
+
         cb(err);
     });
 };

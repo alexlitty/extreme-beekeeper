@@ -1,13 +1,13 @@
 /**
  * Instance of the game.
  */
-function I() {
+function I(c) {
 
     // Honey gained per tick.
-    this.H = 1;
+    this.H = c.H;
 
     // Honey.
-    this.h = 0;
+    this.h = c.h;
 }
 
 /**

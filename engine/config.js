@@ -1,2 +1,4 @@
 // Ticks to be executed per second.
-var f = 20;
+var C = {
+    f: 20
+};
