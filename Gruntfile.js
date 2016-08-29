@@ -25,8 +25,17 @@ module.exports = function(grunt) {
             }
         },
 
-        concat: {
+        cssmin: {
             all: {
+                src: [
+                    'client/**/*.css'
+                ],
+                dest: 'client-min/b.css'
+            }
+        },
+
+        concat: {
+            js: {
                 options: { separator: '' },
                 src: [
                     'client/utility.js',
@@ -65,9 +74,10 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['mkdir', 'htmlmin', 'concat', 'uglify']);
+    grunt.registerTask('default', ['mkdir', 'htmlmin', 'cssmin', 'concat', 'uglify']);
 }
