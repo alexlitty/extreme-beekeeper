@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Extreme Beekeeper</title>
@@ -7,12 +8,18 @@
     
     <body>
 
-        <div>
-            You have <span id="h"><%= honey %></span>&nbsp;honey
+        <div id="A">
+            <span class="h">You have </span>
+                <span id="h"><%= honey %></span>
+            &nbsp;Honey
         </div>
 
-        <div>
-            <em>the bees are making <span id="H"><%= honeyRate * 20 %> honey per second</em>
+        <div id="B">
+            <em>
+                <span class="h">the bees are making </span>
+                    <span id="r"><%= honeyRate * 20 %></span>
+                &nbsp;per second
+            </em>
         </div>
 
         <hr>

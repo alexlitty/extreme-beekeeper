@@ -1,0 +1,28 @@
+/* Honey amount */
+#A {
+    position: relative;
+    left: 1em;
+
+    display: inline-block;
+    padding: 1em;
+
+    background-color: #EAE151;
+    border-radius: 8px;
+
+    color: #4C491A;
+}
+
+/* Honey rate */
+#B {
+    display: inline-block;
+    padding: 1em 1em 1em 2em;
+
+    background-color: #898330;
+    border-radius: 8px;
+
+    color: #eee;
+}
+
+#r::before {
+    content: "+"
+}
