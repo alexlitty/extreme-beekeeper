@@ -9,7 +9,7 @@ L('load', function() {
     // Get initial values.
         c = {
             H: 1,
-            h: F(V(h))
+            h: P(V(h))
         },
 
     // Initialize instance.
@@ -18,7 +18,12 @@ L('load', function() {
     // Kick off game.
     Z(function() {
         i.t();
-        W(h,i.h);
+
+        // Update the honey count.
+        W(
+            h,
+            F(i.h)
+        );
     }, 1000/C.f);
 
 });
