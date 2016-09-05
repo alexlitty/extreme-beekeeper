@@ -51,10 +51,6 @@ Session.prototype.init = function(cb) {
 
     db.get('session', self.id, function(err, data) {
         self.data = data;
-        if (!self.data.honey) {
-            self.data.honey = 1;
-        }
-
         self.instance = new Instance(self.data);
         cb(err);
     });
@@ -67,7 +63,7 @@ Session.prototype.save = function(cb) {
     this.set('previousTime', moment());
 
     this.set('honey', this.instance.getHoney());
-    this.set('hives', this.instance.getHives());
+    this.set('hives', this.instance.getItemCount('A'));
 
     db.set('session', this.id, this.data, cb);
 };

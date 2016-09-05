@@ -1,3 +1,4 @@
+var _ = require('underscore');
 var fs = require('fs');
 var path = require('path');
 var requireFromString = require('require-from-string');
@@ -14,8 +15,8 @@ engineInstance = requireFromString(engineInstance + 'module.exports = I');
  */
 function Instance(state) {
     this.innerInstance = new engineInstance({
-        $: state.honey,
-        A: state.hives
+        $: state.honey||1,
+        A: state.hives||0
     });
 }
 
@@ -27,10 +28,10 @@ Instance.prototype.getHoney = function() {
 }
 
 /**
- * Get the current amount of hives.
+ * Get the current amount of a particular item.
  */
-Instance.prototype.getHives = function() {
-    return this.innerInstance.A;
+Instance.prototype.getItemCount = function(item) {
+    return this.innerInstance[item];
 }
 
 /**
@@ -38,6 +39,18 @@ Instance.prototype.getHives = function() {
  */
 Instance.prototype.getHoneyPerSecond = function() {
     return this.innerInstance._ * config.ticksPerSecond;
+}
+
+/**
+ * Add items to the instance.
+ */
+Instance.prototype.addItem = function(item, amount) {
+    if (/[A-Z]/.test(item) && _.isNumber(this.innerInstance[item])) {
+        this.innerInstance[item] += amount;
+    }
+
+    // Update honey rate.
+    this.innerInstance.r();
 }
 
 /**

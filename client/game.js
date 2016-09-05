@@ -9,7 +9,7 @@ L('load', function() {
     // Initialize instance.
     i = new I({
         $: P(V(h)),
-        A: 0
+        A: P(V(D("AA")))
     });
 
     // Kick off game.
