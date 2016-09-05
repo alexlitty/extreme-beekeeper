@@ -1,9 +1,16 @@
 /**
  * Aliases to common functions and properties.
  */
-var D = document.getElementById.bind(document),
-    L = window.addEventListener.bind(window),
-    V = function($) { return $.dataset.v || $.innerHTML; },
+var d = document,
+    w = window,
+
+    D = d.getElementById.bind(d),
+    e = function() { return d.createElement('div') },
+
+    a = function($, _) { $.appendChild(_) },
+
+    L = w.addEventListener.bind(w),
+    V = function($) { return $.dataset.v || $.innerHTML },
     W = function($, _) { $.innerHTML = _ },
     Z = setInterval,
     z = setTimeout,
