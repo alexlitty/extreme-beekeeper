@@ -1,5 +1,6 @@
 html, body {
     margin: 0;
+    height: 100%;
 }
 
 html {
@@ -8,8 +9,5 @@ html {
 
 body {
     padding: 1em;
-}
-
-body {
     background-color: #AAE;
 }
