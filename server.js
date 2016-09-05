@@ -29,6 +29,7 @@ app.use(function(req, res, next) {
     // Ignore static files.
     if (req.originalUrl.indexOf('.') > -1) {
         next();
+        return;
     }
 
     // Get session and continue.

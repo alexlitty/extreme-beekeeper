@@ -14,12 +14,12 @@ exports.init = function(app, contentPath) {
         res.sendFile(path.join(contentPath, 'b.css'));
     });
 
-    app.get('/', function(req, res) {
+    app.get('/(:action-:item)?', function(req, res) {
         async.waterfall(
             [
                 // Update the game state.
                 function(next) {
-                    game.update(req.session, next);
+                    game.update(req.session, req.params, next);
                 },
 
                 // Render a page response.
