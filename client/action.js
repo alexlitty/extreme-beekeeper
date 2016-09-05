@@ -1,7 +1,14 @@
 /**
- * Sends a request to the server.
+ * Performs an action.
  */
-function Q($) {
+function Q($, _) {
+
+    // Update the game instance.
+    if ($ == 'buy') {
+        i.b(_, 1);
+    }
+
+    // Save action remotely.
     var x = new XMLHttpRequest();
     x.onload = function() {
 
@@ -15,6 +22,6 @@ function Q($) {
         }
 
     }
-    x.open('POST', $);
+    x.open('POST', [$, _].join('-'));
     x.send();
 }

@@ -3,9 +3,6 @@
  */
 L('load', function() {
 
-    // Get user interface elements.
-    var h = D("h");
-
     // Initialize instance.
     i = new I({
         $: P(V(h)),
@@ -16,11 +13,18 @@ L('load', function() {
     Z(function() {
         i.t();
 
-        // Update the honey count.
+        // Update honey count.
         W(
-            h,
+            D("h"),
             F(i.$)
         );
+
+        // Update honey rate.
+        W(
+            D("r"),
+            F(i._ * C.f)
+        );
+
     }, 1000/C.f);
 
 });
