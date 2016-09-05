@@ -3,11 +3,30 @@
  */
 L('load', function() {
 
+    // Initialize local storage, if available.
+    try {
+        B = w.localStorage;
+        B._ = '_';
+        if (B._ != '_') {
+            throw 0;
+        }
+    }
+    
+    // Not available.
+    catch(x) {
+        B = U;
+    }
+
     // Initialize instance.
     i = new I({
-        $: P(V(h)),
-        A: P(V(D("AA")))
+        _t: new T(B ? B._t : U),
+        $: P(V('h')),
+        A: P(V('AA'))
     });
+
+    // Catch up on background progress.
+    i.c();
+    q();
 
     // Kick off game.
     Z(function() {

@@ -4,7 +4,7 @@ var requireFromString = require('require-from-string');
 var config = require('./config');
 
 /**
- * Dependencies.
+ * Engine-level format dependencies.
  */
 var dependencies = fs.readFileSync(path.join(config.path.engine, 'utility.js'));
 

@@ -1,4 +1,14 @@
 /**
+ * Saves progress locally, if applicable.
+ */
+function q() {
+    if (B) {
+        B._t = new T();
+        B.$ = i.$ || 1;
+    }
+}
+
+/**
  * Performs an action.
  */
 function Q($, _) {
@@ -8,20 +18,28 @@ function Q($, _) {
         i.b(_, 1);
     }
 
-    // Save action remotely.
-    var x = new XMLHttpRequest();
-    x.onload = function() {
-
-        // Problem with request. Report out-of-sync.
-        if (x.status !== 200) {
-            if (!D('Q')) {
-                y = e('div');
-                y.id = 'Q';
-                a(d.body, y);
-            }
-        }
-
+    // Save progress locally.
+    if (B) {
+        q();
+        B[_] = i[_];
     }
-    x.open('POST', [$, _].join('-'));
-    x.send();
+
+    // Save action remotely.
+    else {
+        var x = new XMLHttpRequest();
+        x.onload = function() {
+
+            // Problem with request. Report out-of-sync.
+            if (x.status !== 200) {
+                if (!D('Q')) {
+                    y = e('div');
+                    y.id = 'Q';
+                    a(d.body, y);
+                }
+            }
+
+        }
+        x.open('POST', [$, _].join('-'));
+        x.send();
+    }
 }

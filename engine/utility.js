@@ -1,4 +1,5 @@
 var P = function($) { return parseInt($) },
+    T = Date,
 
 // Generic multi-purpose variables.
     $,

@@ -1,20 +1,31 @@
 var _ = require('underscore');
 var fs = require('fs');
+var moment = require('moment');
 var path = require('path');
 var requireFromString = require('require-from-string');
+
 var config = require('./config');
+
+/**
+ * Engine-level instance dependencies.
+ */
+var dependencies = fs.readFileSync(path.join(config.path.engine, 'utility.js'));
+dependencies += fs.readFileSync(path.join(config.path.engine, 'config.js'));
 
 /**
  * Engine-level instance.
  */
 var engineInstance = fs.readFileSync(path.join(config.path.engine, 'instance.js'));
-engineInstance = requireFromString(engineInstance + 'module.exports = I');
+engineInstance = requireFromString(dependencies + engineInstance + 'module.exports = I');
 
 /**
  * Server wrapper for the engine-level instance.
  */
 function Instance(state) {
+    var time = state.previousTime ? moment(state.previousTime) : moment();
+
     this.innerInstance = new engineInstance({
+        _t: time.toDate(),
         $: state.honey||1,
         A: state.hives||0
     });
@@ -39,6 +50,13 @@ Instance.prototype.getItemCount = function(item) {
  */
 Instance.prototype.getHoneyPerSecond = function() {
     return this.innerInstance._ * config.ticksPerSecond;
+}
+
+/**
+ * Catch-up.
+ */
+Instance.prototype.catchUp = function() {
+    this.innerInstance.c();
 }
 
 /**
