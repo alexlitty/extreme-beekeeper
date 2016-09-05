@@ -7,7 +7,7 @@ function I(c) {
     this.$ = c.$;
 
     // Number of hives.
-    this.a = c.a||0;
+    this.A = c.A||0;
 
     // Update honey rate.
     this.r();
@@ -17,7 +17,15 @@ function I(c) {
  * Updates the rate of honey gained per frame.
  */
 I.prototype.r = function() {
-    this._ = this.a * 1;
+    this._ = this.A * 1;
+}
+
+/**
+ * Purchases a new item.
+ */
+I.prototype.b = function($, _) {
+    this[$] += _;
+    this.r();
 }
 
 /**

@@ -1,10 +1,9 @@
+var async = require('async');
 var ejs = require('ejs');
-var moment = require('moment');
 var path = require('path');
 
-var config = require('./config');
 var Session = require('./Session');
-var format = require('./format');
+var game = require('./game');
 
 exports.init = function(app, contentPath) {
     app.get('/b.js', function(req, res) {
@@ -16,52 +15,30 @@ exports.init = function(app, contentPath) {
     });
 
     app.get('/', function(req, res) {
-        var session = new Session(req, res);
-        session.init(function(err) {
+        async.waterfall(
+            [
+                // Update the game state.
+                function(next) {
+                    game.update(req.session, next);
+                },
 
-            // Cannot initialize session.
-            if (err) {
-                console.error(err);
-                res.status(500).send();
-                return;
-            }
+                // Render a page response.
+                function(gameData, next) {
+                    var renderFilename = path.join(contentPath, 'index.html');
+                    ejs.renderFile(renderFilename, gameData, null, next);
+                }
+            ],
 
-            // Catch-up on session.
-            var previousTime = session.get('previousTime');
-            var milliseconds = moment().diff(previousTime);
-
-            if (milliseconds > 0) {
-                var ticks = (milliseconds * config.ticksPerSecond / 1000);
-                session.instance.tick(parseInt(ticks));
-            }
-
-            // Save session state, send page.
-            session.save(function(err) {
+            // Send final response.
+            function(err, content) {
                 if (err) {
-                    console.error(err);
-                    res.status(500).send();
-                    return;
+                    res.fail(res, err);
                 }
 
-                var renderFilename = path.join(contentPath, 'index.html'),
-                    honey = session.instance.getHoney();
-
-                var renderData = {
-                    honey: honey,
-                    honeyFriendly: format(honey),
-                    honeyRate: format(session.instance.getHoneyPerSecond())
-                };
-
-                ejs.renderFile(renderFilename, renderData, null, function(err, content) {
-                    if (err) {
-                        console.error(err);
-                        res.status(500).send();
-                        return;
-                    }
-
-                    res.send(content);
-                });
-            });
-        });
+                else {
+                    res.succeed(content);
+                }
+            }
+        )
     });
 }

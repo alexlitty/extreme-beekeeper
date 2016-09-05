@@ -10,3 +10,7 @@ body {
     padding: 1em;
     background-color: #AAE;
 }
+
+hr {
+    display: none;
+}
