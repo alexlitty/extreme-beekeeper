@@ -10,14 +10,14 @@
 
         <div id="A">
             <span class="h">You have </span>
-                <strong id="h"><%= honey %></strong>
+                <strong id="h" data-v="<%= honey %>"><%= honeyFriendly %></strong>
             &nbsp;Honey
         </div>
 
         <div id="B">
             <em>
                 <span class="h">the bees are making </span>
-                    <span id="r"><%= honeyRate * 20 %></span>
+                    <span id="r" data-v="<%= honeyRate %>"><%= honeyRateFriendly %></span>
                 &nbsp;per second
             </em>
         </div>

@@ -1,11 +1,13 @@
 /*
- * Formats a number nicely.
+ * Formats a number nicely
  */
 function F($) {
     y = $;
-    for (x = 0; y > 1000 && x < 5; x++) { 
+
+    // Get the number of digit groups
+    for (x = 0; y > 999999 && x < 5; x++) { 
         y /= 1000;
     }
 
-    return P(y) + (y > 1000 ? '' : 'kmbt'[x]);
+    return P(y).toLocaleString() + (x > 0 ? ' kmbt'[x] : '');
 }

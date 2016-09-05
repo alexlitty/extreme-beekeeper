@@ -4,6 +4,7 @@ var path = require('path');
 
 var config = require('./config');
 var Session = require('./Session');
+var format = require('./format');
 
 exports.init = function(app, contentPath) {
     app.get('/b.js', function(req, res) {
@@ -42,10 +43,15 @@ exports.init = function(app, contentPath) {
                     return;
                 }
 
-                var renderFilename = path.join(contentPath, 'index.html');
+                var renderFilename = path.join(contentPath, 'index.html'),
+                    honey = session.instance.getHoney(),
+                    honeyRate = session.instance.getHoneyRate();
+
                 var renderData = {
-                    honey: session.instance.getHoney(),
-                    honeyRate: session.instance.getHoneyRate()
+                    honey: honey,
+                    honeyFriendly: format(honey),
+                    honeyRate: honeyRate,
+                    honeyRateFriendly: format(honeyRate * config.ticksPerSecond)
                 };
 
                 ejs.renderFile(renderFilename, renderData, null, function(err, content) {
