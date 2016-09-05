@@ -74,6 +74,8 @@ app.use(function(req, res, next) {
         }
     }
 
+    next();
+
 });
 
 // Start the server.
