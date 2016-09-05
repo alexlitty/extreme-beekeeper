@@ -4,16 +4,13 @@
 L('load', function() {
 
     // Get user interface elements.
-    var h = D("h"),
-
-    // Get initial values.
-        c = {
-            H: 1,
-            h: P(V(h))
-        },
+    var h = D("h");
 
     // Initialize instance.
-        i = new I(c);
+    i = new I({
+        $: P(V(h)),
+        a: 0
+    });
 
     // Kick off game.
     Z(function() {
@@ -22,7 +19,7 @@ L('load', function() {
         // Update the honey count.
         W(
             h,
-            F(i.h)
+            F(i.$)
         );
     }, 1000/C.f);
 

@@ -44,14 +44,12 @@ exports.init = function(app, contentPath) {
                 }
 
                 var renderFilename = path.join(contentPath, 'index.html'),
-                    honey = session.instance.getHoney(),
-                    honeyRate = session.instance.getHoneyRate();
+                    honey = session.instance.getHoney();
 
                 var renderData = {
                     honey: honey,
                     honeyFriendly: format(honey),
-                    honeyRate: honeyRate,
-                    honeyRateFriendly: format(honeyRate * config.ticksPerSecond)
+                    honeyRate: format(session.instance.getHoneyPerSecond())
                 };
 
                 ejs.renderFile(renderFilename, renderData, null, function(err, content) {

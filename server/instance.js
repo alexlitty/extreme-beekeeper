@@ -14,8 +14,8 @@ engineInstance = requireFromString(engineInstance + 'module.exports = I');
  */
 function Instance(state) {
     this.innerInstance = new engineInstance({
-        h: state.honey,
-        H: state.honeyRate
+        $: state.honey,
+        a: state.hives
     });
 }
 
@@ -23,14 +23,21 @@ function Instance(state) {
  * Get the current amount of honey.
  */
 Instance.prototype.getHoney = function() {
-    return this.innerInstance.h;
+    return this.innerInstance.$;
+}
+
+/**
+ * Get the current amount of hives.
+ */
+Instance.prototype.getHives = function() {
+    return this.innerInstance.a;
 }
 
 /**
  * Get the current rate of honey income.
  */
-Instance.prototype.getHoneyRate = function() {
-    return this.innerInstance.H;
+Instance.prototype.getHoneyPerSecond = function() {
+    return this.innerInstance._ * config.ticksPerSecond;
 }
 
 /**

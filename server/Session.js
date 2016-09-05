@@ -54,9 +54,6 @@ Session.prototype.init = function(cb) {
         if (!self.data.honey) {
             self.data.honey = 1;
         }
-        if (!self.data.honeyRate) {
-            self.data.honeyRate = 1;
-        }
 
         self.instance = new Instance(self.data);
         cb(err);
@@ -70,7 +67,7 @@ Session.prototype.save = function(cb) {
     this.set('previousTime', moment());
 
     this.set('honey', this.instance.getHoney());
-    this.set('honeyRate', this.instance.getHoneyRate());
+    this.set('hives', this.instance.getHives());
 
     db.set('session', this.id, this.data, cb);
 };

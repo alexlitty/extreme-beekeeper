@@ -6,4 +6,7 @@ var D = document.getElementById.bind(document),
     V = function($) { return $.dataset.v || $.innerHTML; },
     W = function($, _) { $.innerHTML = _ },
     Z = setInterval,
-    z = setTimeout;
+    z = setTimeout,
+
+    // Game instance.
+    i;

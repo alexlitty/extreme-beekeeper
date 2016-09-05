@@ -3,11 +3,21 @@
  */
 function I(c) {
 
-    // Honey gained per tick.
-    this.H = c.H;
+    // Current amount of honey.
+    this.$ = c.$;
 
-    // Honey.
-    this.h = c.h;
+    // Number of hives.
+    this.a = c.a||0;
+
+    // Update honey rate.
+    this.r();
+}
+
+/**
+ * Updates the rate of honey gained per frame.
+ */
+I.prototype.r = function() {
+    this._ = this.a * 1;
 }
 
 /**
@@ -19,5 +29,5 @@ I.prototype.t = function(n) {
     n = n || 1;
 
     // Add honey.
-    this.h += this.H * n;
+    this.$ += this._ * n;
 }
