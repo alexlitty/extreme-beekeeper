@@ -24,13 +24,11 @@ L('load', function() {
         A: P(V('AA'))
     });
 
-    // Catch up on background progress.
-    i.c();
-    q();
-
     // Kick off game.
     Z(function() {
-        i.t();
+
+        // If interval has fallen behind, catch up and save. Otherwise just tick.
+        i.c() ? q() : i.t();
 
         // Update honey count.
         W(

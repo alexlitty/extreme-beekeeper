@@ -14,6 +14,7 @@ function I(c) {
 
     // Update honey rate.
     this.r();
+
 }
 
 /**
@@ -25,22 +26,24 @@ I.prototype.r = function() {
 
 /**
  * Catch-up.
+ *
+ * Returns the number of ticks performed.
  */
 I.prototype.c = function() {
 
-    // Calculate the time passed.
+    // Time passed.
     X = new T();
     x = X - this._t;
-
-    // Catch up if time has passed.
-    if (x > 0) {
-        this.t(
-            P(
-                x * C.f / 1000
-            )
-        );
-    }
     this._t = X;
+
+    // Ticks needed to catch up.
+    y = C.f * P(x / 1000);
+
+    // Catch up.
+    if (y > 0) {
+        this.t(y);
+    }
+    return y;
 
 }
 
