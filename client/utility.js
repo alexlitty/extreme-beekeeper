@@ -3,7 +3,6 @@
  */
 var U = undefined,
     d = document,
-    l = d.addEventListener.bind(d),
 
     w = window,
     L = w.addEventListener.bind(w),
