@@ -4,11 +4,15 @@
 var U = undefined,
     d = document,
 
+    // Document body.
+    b,
+
     w = window,
     L = w.addEventListener.bind(w),
 
     D = d.getElementById.bind(d),
-    e = function() { return d.createElement('div') },
+    E = function($) { return d.createElement($) },
+    e = function() { return E('div') },
 
     a = function($, _) { $.appendChild(_) },
 
@@ -36,8 +40,14 @@ var U = undefined,
     Z = setInterval,
     z = setTimeout,
 
-    // Reference to local storage, if available.
+    // Local storage, if available.
     B,
+
+    // Main canvas element.
+    S,
+
+    // Main rendering context, if available.
+    s,
 
     // Game instance.
     i;

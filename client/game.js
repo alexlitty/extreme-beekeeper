@@ -2,6 +2,7 @@
  * Initialize our local game instance.
  */
 L('load', function() {
+    b = d.body;
 
     // Initialize local storage, if available.
     try {
@@ -23,6 +24,23 @@ L('load', function() {
         $: P(V('h')),
         A: P(V('AA'))
     });
+
+    // Initialize drawing.
+    S = E('canvas');
+    if (S.getContext) {
+
+        // Get drawing context.
+        s = S.getContext('2d');
+        a(b, S);
+
+        // Fill the window with the canvas.
+        var x = function() {
+            S.width = w.innerWidth;
+            S.height = w.innerHeight;
+        }
+        x();
+        L('resize', x, false);
+    }
 
     // Let there be bees!
     Z(function() {

@@ -4,45 +4,50 @@
         <title>Extreme Beekeeper</title>
         <link href="b.css" rel="stylesheet">
         <script src="b.js"></script>
+
+        <!-- Force the latest IE mode available -->
+        <meta http-equiv='X-UA-Compatible' content='IE=Edge'>
     </head>
     
     <body>
 
-        <div id="A">
-            <span class="h">You have </span>
-                <strong id="h" data-v="<%= honey %>"><%= honeyFriendly %></strong>
-            &nbsp;Honey
-        </div>
+        <main>
+            <div id="A">
+                <span class="h">You have </span>
+                    <strong id="h" data-v="<%= honey %>"><%= honeyFriendly %></strong>
+                &nbsp;Honey
+            </div>
 
-        <div id="B">
-            <em>
-                <span class="h">the bees are making </span>
-                    <span id="r"><%= honeyRate %></span>
-                &nbsp;per second
-            </em>
-        </div>
+            <div id="B">
+                <em>
+                    <span class="h">the bees are making </span>
+                        <span id="r"><%= honeyRate %></span>
+                    &nbsp;per second
+                </em>
+            </div>
 
-        <hr>
+            <hr>
 
-        <table class="h">
-            <tbody>
-                <tr>
-                    <th>Hives</th>
-                    <td id="AA"><%= hives %></td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="h">
+                <tbody>
+                    <tr>
+                        <th>Hives</th>
+                        <td id="AA"><%= hives %></td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <hr>
+            <hr>
 
-        <nav>
-            <strong class="h">What do you do?</strong>
+            <nav>
+                <strong class="h">What do you do?</strong>
 
-            <ul>
-                <li><a href="">Refresh</a></li>
-                <li><a href="buy-A" >Buy Hive</a></li>
-            </ul>
-        </nav>
+                <ul>
+                    <li><a href="">Refresh</a></li>
+                    <li><a href="buy-A" >Buy Hive</a></li>
+                </ul>
+            </nav>
+        <main>
 
     </body>
 </html>

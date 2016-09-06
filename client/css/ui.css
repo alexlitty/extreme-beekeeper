@@ -1,3 +1,9 @@
+main {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+}
+
 /* Honey amount */
 #A {
     position: relative;
