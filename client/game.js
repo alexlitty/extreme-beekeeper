@@ -24,7 +24,7 @@ L('load', function() {
         A: P(V('AA'))
     });
 
-    // Kick off game.
+    // Let there be bees!
     Z(function() {
 
         // If interval has fallen behind, catch up and save. Otherwise just tick.
