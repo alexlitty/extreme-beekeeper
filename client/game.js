@@ -29,17 +29,49 @@ L('load', function() {
     S = E('canvas');
     if (S.getContext) {
 
-        // Get drawing context.
+        // Get drawing context, assign helper functions.
         s = S.getContext('2d');
+        p = s.beginPath.bind(s);
+        m = s.moveTo.bind(s);
+        l = s.lineTo.bind(s);
+        f = s.fill.bind(s);
         a(b, S);
 
         // Fill the window with the canvas.
-        var x = function() {
-            S.width = w.innerWidth;
-            S.height = w.innerHeight;
+        var X = function() {
+            S.width = h = w.innerWidth;
+            S.height = H = w.innerHeight;
         }
-        x();
-        L('resize', x, false);
+        X();
+        L('resize', X, false);
+
+        // Grass.
+        var Y = new function() {
+            this.$ = [];
+
+            y = H*0.65;
+            for (x = 0; x <= 25; x++) {
+                this.$.push(h * (x/25));
+                this.$.push(y = g(y, 2));
+            }
+
+            this.$.push(h, H);
+            this.$.push(0, H);
+        }
+        Y._ = function() {
+            c("#9F9");
+            o(this.$);
+            f();
+        }
+        R(Y);
+
+        // Start drawing.
+        Z(function() {
+            s.clearRect(0, 0, h, H);
+            for (y = 0; y < r.length; y++) {
+                r[y]._();
+            }
+        }, 1000/30);
     }
 
     // Let there be bees!

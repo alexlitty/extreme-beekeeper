@@ -40,6 +40,12 @@ var U = undefined,
     Z = setInterval,
     z = setTimeout,
 
+    // Random integer generator, between $ and _.
+    G = function($, _) { return Math.floor(Math.random() * (_ - $ + 1)) + $ },
+    
+    // Differ from an integer randomly.
+    g = function($, _) { return G($-_,$+_) },
+
     // Local storage, if available.
     B,
 
@@ -48,6 +54,32 @@ var U = undefined,
 
     // Main rendering context, if available.
     s,
+
+    // Canvas, width and height.
+    h,
+    H,
+
+    // Canvas helper functions.
+    p,
+    m,
+    l,
+    f,
+    c = function($) { s.fillStyle = $ },
+
+    // Draws a path.
+    o = function($) {
+        p();
+        m($[0], $[1]);
+        for (x = 2; x < $.length; x += 2) {
+            l($[x], $[x+1]);
+        }
+    },
+
+    // Rendered objects.
+    r = [],
+
+    // Adds an object to be rendered.
+    R = function($) { r.push($) },
 
     // Game instance.
     i;
